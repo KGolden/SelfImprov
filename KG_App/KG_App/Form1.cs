@@ -32,6 +32,8 @@ namespace KG_App
         private void Canvas_MouseDown(object sender, MouseEventArgs e)
         {
             canDraw = true;
+
+            //if user picked a square
             if (drawSquare)
             {
                 SolidBrush s = new SolidBrush(tsColorbtn.ForeColor);
@@ -39,6 +41,8 @@ namespace KG_App
                 canDraw = false;
                 drawSquare = false;
             }
+
+            //if UserControl picked rect
             else if(drawRect)
             {
                 SolidBrush s = new SolidBrush(tsColorbtn.ForeColor);
@@ -46,6 +50,7 @@ namespace KG_App
                 canDraw = false;
                 drawRect = false;
             }
+            //if user picked circ
             else if (drawCirc)
             {
                 SolidBrush s = new SolidBrush(tsColorbtn.ForeColor);
@@ -59,7 +64,10 @@ namespace KG_App
         //Mouse Up Event Handler
         private void Canvas_MouseUp(object sender, MouseEventArgs e)
         {
+
             canDraw = false;
+
+            //set points back to null
             prevX = null;
             prevY = null;
         }
@@ -73,11 +81,13 @@ namespace KG_App
                 //do this
                 try
                 {
+                    //new pen obj
                     Pen p = new Pen(tsColorbtn.ForeColor, float.Parse(tsSize.Text));
                     g.DrawLine(p, new Point(prevX ?? e.X, prevY ?? e.Y), new Point(e.X, e.Y));
                     prevX = e.X;
                     prevY = e.Y;
                 }
+                //catch exception if no brush size
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
